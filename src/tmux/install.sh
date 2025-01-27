@@ -15,15 +15,4 @@ check_packages() {
     fi
 }
 
-check_packages git tmux
-
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-mkdir -p ~/.config/tmux
-
-cat << EOF >> ~/.config/tmux/tmux.conf
-set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin 'tmux-plugins/tmux-sensible'
-
-run -b '~/.tmux/plugins/tpm/tpm'
-EOF
+check_packages tmux

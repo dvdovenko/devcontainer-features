@@ -15,22 +15,4 @@ check_packages() {
     fi
 }
 
-check_packages bat
-
-mkdir -p ~/.zsh
-
-cat << EOF > ~/.zsh/aliases.zsh
-#! /bin/zsh
-# Alias
-# ---
-#
-alias cat="bat"
-alias grep='grep --color'
-
-alias uuid="uuidgen | tr '[:upper:]' '[:lower:]'"
-alias guid="uuid"
-alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
-alias gensalt32="xxd -g 2 -l 32 -p /dev/random | tr -d '\n'"
-alias gensalt16="xxd -g 2 -l 16 -p /dev/random | tr -d '\n'"
-alias gensalt8="xxd -g 2 -l 8 -p /dev/random | tr -d '\n'
-EOF
+check_packages bat jq

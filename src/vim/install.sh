@@ -15,19 +15,4 @@ check_packages() {
     fi
 }
 
-check_packages vim neovim git
-
-git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
-sh ~/.vim_runtime/install_awesome_vimrc.sh
-
-if [ -d ~/.config/nvim ]; then
-    mv ~/.config/nvim ~/.config/nvim.backup
-fi
-rm -rf ~/.local/share/nvim
-
-git clone --depth=1 https://github.com/NvChad/NvChad ~/.config/nvim
-
-mkdir -p ~/.zsh
-cat << EOF >> ~/.zsh/aliases.zsh
-alias vim="nvim"
-EOF
+check_packages vim neovim
