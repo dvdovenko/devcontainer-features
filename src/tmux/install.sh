@@ -15,7 +15,7 @@ check_packages() {
     fi
 }
 
-check_packages tmux
+check_packages git tmux
 
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
