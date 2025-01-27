@@ -1,7 +1,7 @@
 
 # tmux (tmux)
 
-Installs tmux via apt-get
+Installs tmux from sources
 
 ## Example Usage
 
