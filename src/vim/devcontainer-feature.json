@@ -3,10 +3,6 @@
   "id": "vim",
   "version": "1.0.0",
   "description": "Installs vim via apt-get with amix/vimrc",
-  "dependsOn": {
-    "ghcr.io/devcontainers/features/common-utils": {},
-    "ghcr.io/devcontainers/features/git": {}
-  },
   "installsAfter": [
       "ghcr.io/devcontainers/features/common-utils",
       "ghcr.io/devcontainers/features/git"

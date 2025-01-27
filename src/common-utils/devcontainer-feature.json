@@ -3,10 +3,6 @@
   "id": "common-utils",
   "version": "1.0.0",
   "description": "Installs common useful utilities for development",
-  "dependsOn": {
-    "ghcr.io/devcontainers/features/common-utils": {},
-    "ghcr.io/devcontainers/features/git": {}
-  },
   "installsAfter": [
       "ghcr.io/devcontainers/features/common-utils",
       "ghcr.io/devcontainers/features/git"

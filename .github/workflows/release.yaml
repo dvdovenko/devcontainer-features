@@ -1,4 +1,5 @@
 name: "Release Features and Update Docs"
+permissions: write-all
 on:
   workflow_dispatch:
 
