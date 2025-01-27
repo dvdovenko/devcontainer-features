@@ -1,0 +1,15 @@
+{
+  "name": "tmux",
+  "id": "tmux",
+  "version": "1.0.0",
+  "description": "Installs tmux via apt-get",
+  "dependsOn": {
+    "ghcr.io/devcontainers/features/common-utils": {},
+    "ghcr.io/devcontainers/features/git": {}
+  },
+  "installsAfter": [
+      "ghcr.io/devcontainers/features/common-utils",
+      "ghcr.io/devcontainers/features/git"
+  ],
+  "options": {}
+}
