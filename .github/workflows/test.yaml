@@ -13,8 +13,8 @@ jobs:
     strategy:
       matrix:
         features:
+          - neovim
           - tmux
-          - vim
         baseImage:
           - debian:latest
           - ubuntu:latest
@@ -34,8 +34,8 @@ jobs:
     strategy:
       matrix:
         features:
+          - neovim
           - tmux
-          - vim
     steps:
       - uses: actions/checkout@v3
 

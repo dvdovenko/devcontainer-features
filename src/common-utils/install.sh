@@ -15,4 +15,4 @@ check_packages() {
     fi
 }
 
-check_packages bat jq
+check_packages tmux ripgrep bat jq vim neovim

@@ -1,8 +1,8 @@
 {
-  "name": "tmux",
-  "id": "tmux",
+  "name": "neovim",
+  "id": "neovim",
   "version": "1.0.2",
-  "description": "Installs tmux from sources",
+  "description": "Installs neovim from sources (for the latest version)",
   "installsAfter": [
       "ghcr.io/devcontainers/features/common-utils",
       "ghcr.io/devcontainers/features/git"

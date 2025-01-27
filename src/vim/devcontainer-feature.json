@@ -1,7 +1,7 @@
 {
   "name": "vim",
   "id": "vim",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Installs vim via apt-get with amix/vimrc",
   "installsAfter": [
       "ghcr.io/devcontainers/features/common-utils",
