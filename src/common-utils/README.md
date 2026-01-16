@@ -15,6 +15,8 @@ Installs common useful utilities for development
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
+| installNeovim | Install Neovim (set to false to skip) | boolean | true |
+| installWatchman | Install Watchman (set to false to skip) | boolean | true |
 
 
 

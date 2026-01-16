@@ -1,11 +1,22 @@
 {
   "name": "Common Utilities",
   "id": "common-utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Installs common useful utilities for development",
   "installsAfter": [
       "ghcr.io/devcontainers/features/common-utils",
       "ghcr.io/devcontainers/features/git"
   ],
-  "options": {}
+  "options": {
+    "installNeovim": {
+      "type": "boolean",
+      "default": true,
+      "description": "Install Neovim (set to false to skip)"
+    },
+    "installWatchman": {
+      "type": "boolean",
+      "default": true,
+      "description": "Install Watchman (set to false to skip)"
+    }
+  }
 }

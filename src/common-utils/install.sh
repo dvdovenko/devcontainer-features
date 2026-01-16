@@ -15,4 +15,19 @@ check_packages() {
     fi
 }
 
-check_packages tmux ripgrep bat jq vim neovim
+check_packages tmux ripgrep bat jq vim curl wget git unzip
+
+INSTALL_NEOVIM_EFFECTIVE=${INSTALLNEOVIM:-${INSTALL_NEOVIM:-true}}
+INSTALL_WATCHMAN_EFFECTIVE=${INSTALLWATCHMAN:-${INSTALL_WATCHMAN:-true}}
+
+if [ "${INSTALL_NEOVIM_EFFECTIVE}" = "true" ]; then
+    bash ./neovim.sh
+else
+    echo "Skipping Neovim installation."
+fi
+
+if [ "${INSTALL_WATCHMAN_EFFECTIVE}" = "true" ]; then
+    bash ./watchman.sh
+else
+    echo "Skipping Watchman installation."
+fi
