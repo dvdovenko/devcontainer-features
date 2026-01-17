@@ -19,8 +19,10 @@ fi
 
 echo "Fetching latest Watchman release information..."
 
+RELEASE_TAG="${WATCHMAN_RELEASE_TAG:-v2025.12.22.00}"
+
 # Get the latest release data
-RELEASE_DATA=$(curl -sL https://api.github.com/repos/facebook/watchman/releases/tags/v2025.12.22.00)
+RELEASE_DATA=$(curl -sL https://api.github.com/repos/facebook/watchman/releases/tags/${RELEASE_TAG})
 
 # Extract the download URL for the Linux zip file
 DOWNLOAD_URL=$(echo "$RELEASE_DATA" | grep -o '"browser_download_url":[[:space:]]*"[^"]*linux\.zip"' | sed 's/"browser_download_url":[[:space:]]*"\(.*\)"/\1/')

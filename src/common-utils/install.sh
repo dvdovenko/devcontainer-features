@@ -15,10 +15,31 @@ check_packages() {
     fi
 }
 
-check_packages tmux ripgrep bat jq vim curl wget git unzip
+check_packages apt-transport-https \
+    bat \
+    build-essential \
+    ca-certificates \
+    curl \
+    file \
+    fontconfig \
+    git \
+    gnupg \
+    jq \
+    libvips-dev \
+    locales \
+    openssl \
+    ripgrep \
+    ruby-full \
+    tmux \
+    unzip \
+    vim \
+    wget \
+    xz-utils
 
 INSTALL_NEOVIM_EFFECTIVE=${INSTALLNEOVIM:-${INSTALL_NEOVIM:-true}}
 INSTALL_WATCHMAN_EFFECTIVE=${INSTALLWATCHMAN:-${INSTALL_WATCHMAN:-true}}
+INSTALL_OPENCODE_EFFECTIVE=${INSTALLOPENCODE:-${INSTALL_OPENCODE:-false}}
+INSTALL_CODEX_EFFECTIVE=${INSTALLCODEX:-${INSTALL_CODEX:-false}}
 
 if [ "${INSTALL_NEOVIM_EFFECTIVE}" = "true" ]; then
     bash ./neovim.sh
@@ -30,4 +51,16 @@ if [ "${INSTALL_WATCHMAN_EFFECTIVE}" = "true" ]; then
     bash ./watchman.sh
 else
     echo "Skipping Watchman installation."
+fi
+
+if [ "${INSTALL_OPENCODE_EFFECTIVE}" = "true" ]; then
+    bash ./opencode.sh
+else
+    echo "Skipping OpenCode installation."
+fi
+
+if [ "${INSTALL_CODEX_EFFECTIVE}" = "true" ]; then
+    bash ./codex.sh
+else
+    echo "Skipping Codex installation."
 fi

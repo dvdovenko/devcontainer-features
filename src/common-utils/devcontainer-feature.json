@@ -5,7 +5,8 @@
   "description": "Installs common useful utilities for development",
   "installsAfter": [
       "ghcr.io/devcontainers/features/common-utils",
-      "ghcr.io/devcontainers/features/git"
+      "ghcr.io/devcontainers/features/git",
+      "ghcr.io/devcontainers-extra/features/eza"
   ],
   "options": {
     "installNeovim": {
@@ -17,6 +18,16 @@
       "type": "boolean",
       "default": true,
       "description": "Install Watchman (set to false to skip)"
+    },
+    "installOpenCode": {
+      "type": "boolean",
+      "default": false,
+      "description": "Install OpenCode (set to true to install)"
+    },
+    "installCodex": {
+      "type": "boolean",
+      "default": false,
+      "description": "Install Codex (set to true to install)"
     }
   }
 }
