@@ -17,6 +17,8 @@ Installs common useful utilities for development
 |-----|-----|-----|-----|
 | installNeovim | Install Neovim (set to false to skip) | boolean | true |
 | installWatchman | Install Watchman (set to false to skip) | boolean | true |
+| installOpenCode | Install OpenCode (set to true to install) | boolean | false |
+| installCodex | Install Codex (set to true to install) | boolean | false
 
 
 
