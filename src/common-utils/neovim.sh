@@ -34,14 +34,23 @@ fi
 # Get an adjusted ID independent of distro variants
 if [ "${ID}" = "debian" ] || [ "${ID_LIKE}" = "debian" ]; then
     ADJUSTED_ID="debian"
+elif [ "${ID}" = "alpine" ]; then
+    ADJUSTED_ID="alpine"
 # other distros to be implemented
 # elif [[ "${ID}" = "rhel" || "${ID}" = "fedora" || "${ID}" = "mariner" || "${ID_LIKE}" = *"rhel"* || "${ID_LIKE}" = *"fedora"* || "${ID_LIKE}" = *"mariner"* ]]; then
-  # todo
-# elif [ "${ID}" = "alpine" ]; then
   # todo
 else
     echo "Linux distro ${ID} not supported."
     exit 1
+fi
+
+if [ "${ADJUSTED_ID}" = "alpine" ]; then
+    # Alpine ships a packaged neovim build; install that directly rather than
+    # building from source (the musl toolchain build is brittle and much
+    # slower). This means VERSION pinning has no effect on Alpine.
+    echo "Installing neovim from the Alpine package repository (VERSION is ignored on Alpine)..."
+    apk add --no-cache neovim
+    exit 0
 fi
 
 # Install packages for appropriate OS

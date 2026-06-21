@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 set -e
 
@@ -7,34 +7,61 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-# Checks if packages are installed and installs them if not
-check_packages() {
-    if ! dpkg -s "$@" > /dev/null 2>&1; then
-        apt-get update -y
-        apt-get -y install --no-install-recommends "$@"
-    fi
-}
+# The sub-install scripts are invoked below via an explicit `bash` call, so
+# bash must be installed first - notably Alpine doesn't ship it by default.
+if command -v apk >/dev/null 2>&1; then
+    apk add --no-cache \
+        bash \
+        bat \
+        build-base \
+        ca-certificates \
+        curl \
+        file \
+        fontconfig \
+        git \
+        gnupg \
+        jq \
+        musl-locales \
+        openssl \
+        ripgrep \
+        ruby-full \
+        tmux \
+        unzip \
+        vim \
+        vips-dev \
+        wget \
+        xz
+else
+    # Checks if packages are installed and installs them if not
+    check_packages() {
+        if ! dpkg -s "$@" > /dev/null 2>&1; then
+            apt-get update -y
+            apt-get -y install --no-install-recommends "$@"
+        fi
+    }
 
-check_packages apt-transport-https \
-    bat \
-    build-essential \
-    ca-certificates \
-    curl \
-    file \
-    fontconfig \
-    git \
-    gnupg \
-    jq \
-    libvips-dev \
-    locales \
-    openssl \
-    ripgrep \
-    ruby-full \
-    tmux \
-    unzip \
-    vim \
-    wget \
-    xz-utils
+    check_packages apt-transport-https \
+        bash \
+        bat \
+        build-essential \
+        ca-certificates \
+        curl \
+        file \
+        fontconfig \
+        git \
+        gnupg \
+        jq \
+        libvips-dev \
+        locales \
+        openssl \
+        ripgrep \
+        ruby-full \
+        tmux \
+        unzip \
+        vim \
+        wget \
+        xz-utils
+fi
 
 INSTALL_NEOVIM_EFFECTIVE=${INSTALLNEOVIM:-${INSTALL_NEOVIM:-true}}
 INSTALL_WATCHMAN_EFFECTIVE=${INSTALLWATCHMAN:-${INSTALL_WATCHMAN:-true}}

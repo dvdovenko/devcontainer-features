@@ -3,19 +3,36 @@ set -e
 
 echo "Activating feature 'watchman'"
 
-# Check if curl is installed, install if not
-if ! command -v curl >/dev/null 2>&1; then
-    echo "curl is not installed. Installing curl..."
-    apt-get update -y
-    apt-get install -y curl
+# Checks if packages are installed and installs them if not
+check_packages() {
+    if command -v brew >/dev/null 2>&1; then
+        sudo brew install "$@"
+    elif ! dpkg -s "$@" >/dev/null 2>&1; then
+        if [ "$(find /var/lib/apt/lists/* | wc -l)" = "0" ]; then
+            echo "Running apt-get update..."
+            sudo apt-get update -y
+        fi
+        sudo apt-get -y install --no-install-recommends "$@"
+    elif command -v yum >/dev/null 2>&1; then
+        sudo yum install "$@"
+    elif command -v apk >/dev/null 2>&1; then
+        sudo apk add --no-cache "$@"
+    elif command -v pacman >/dev/null 2>&1; then
+        sudo pacman -S "$@"
+    else
+        echo "Could not find a package manager to install $@. Please install it manually."
+    fi
+}
+
+# Facebook only publishes glibc Linux builds, and the current builds depend
+# on glibc symbols newer than what musl's gcompat shim implements, so there
+# is no working install path on Alpine. Skip rather than fail the build.
+if command -v apk >/dev/null 2>&1; then
+    echo "Warning: Watchman has no Alpine/musl build available upstream. Skipping installation."
+    exit 0
 fi
 
-# Check if unzip is installed, install if not
-if ! command -v unzip >/dev/null 2>&1; then
-    echo "unzip is not installed. Installing unzip..."
-    apt-get update -y
-    apt-get install -y unzip
-fi
+check_packages curl unzip
 
 echo "Fetching latest Watchman release information..."
 
