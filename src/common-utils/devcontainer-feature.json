@@ -19,15 +19,15 @@
       "default": true,
       "description": "Install Watchman (set to false to skip)"
     },
-    "installOpenCode": {
-      "type": "boolean",
-      "default": false,
-      "description": "Install OpenCode (set to true to install)"
-    },
     "installCodex": {
       "type": "boolean",
       "default": false,
       "description": "Install Codex (set to true to install)"
+    },
+    "installClaude": {
+      "type": "boolean",
+      "default": false,
+      "description": "Install Claude Code (set to true to install)"
     }
   }
 }

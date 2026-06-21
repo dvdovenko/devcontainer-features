@@ -38,8 +38,8 @@ check_packages apt-transport-https \
 
 INSTALL_NEOVIM_EFFECTIVE=${INSTALLNEOVIM:-${INSTALL_NEOVIM:-true}}
 INSTALL_WATCHMAN_EFFECTIVE=${INSTALLWATCHMAN:-${INSTALL_WATCHMAN:-true}}
-INSTALL_OPENCODE_EFFECTIVE=${INSTALLOPENCODE:-${INSTALL_OPENCODE:-false}}
 INSTALL_CODEX_EFFECTIVE=${INSTALLCODEX:-${INSTALL_CODEX:-false}}
+INSTALL_CLAUDE_EFFECTIVE=${INSTALLCLAUDE:-${INSTALL_CLAUDE:-false}}
 
 bash ./git-delta.sh
 
@@ -55,14 +55,14 @@ else
     echo "Skipping Watchman installation."
 fi
 
-if [ "${INSTALL_OPENCODE_EFFECTIVE}" = "true" ]; then
-    bash ./opencode.sh
-else
-    echo "Skipping OpenCode installation."
-fi
-
 if [ "${INSTALL_CODEX_EFFECTIVE}" = "true" ]; then
     bash ./codex.sh
 else
     echo "Skipping Codex installation."
+fi
+
+if [ "${INSTALL_CLAUDE_EFFECTIVE}" = "true" ]; then
+    bash ./claude.sh
+else
+    echo "Skipping Claude installation."
 fi
