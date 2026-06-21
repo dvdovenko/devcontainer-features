@@ -3,24 +3,29 @@ set -e
 
 echo "Activating feature 'watchman'"
 
-# Checks if packages are installed and installs them if not
+# Checks if packages are installed and installs them if not.
+# devcontainer feature install scripts always run as root, so none of these
+# need (or, on minimal images like Alpine, even have) sudo available.
 check_packages() {
     if command -v brew >/dev/null 2>&1; then
-        sudo brew install "$@"
-    elif ! dpkg -s "$@" >/dev/null 2>&1; then
-        if [ "$(find /var/lib/apt/lists/* | wc -l)" = "0" ]; then
-            echo "Running apt-get update..."
-            sudo apt-get update -y
+        brew install "$@"
+    elif command -v apt-get >/dev/null 2>&1; then
+        if ! dpkg -s "$@" >/dev/null 2>&1; then
+            if [ "$(find /var/lib/apt/lists/* | wc -l)" = "0" ]; then
+                echo "Running apt-get update..."
+                apt-get update -y
+            fi
+            apt-get -y install --no-install-recommends "$@"
         fi
-        sudo apt-get -y install --no-install-recommends "$@"
-    elif command -v yum >/dev/null 2>&1; then
-        sudo yum install "$@"
     elif command -v apk >/dev/null 2>&1; then
-        sudo apk add --no-cache "$@"
+        apk add --no-cache "$@"
+    elif command -v yum >/dev/null 2>&1; then
+        yum install -y "$@"
     elif command -v pacman >/dev/null 2>&1; then
-        sudo pacman -S "$@"
+        pacman -S --noconfirm "$@"
     else
         echo "Could not find a package manager to install $@. Please install it manually."
+        exit 1
     fi
 }
 
