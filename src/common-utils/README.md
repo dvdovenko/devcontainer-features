@@ -18,7 +18,8 @@ Installs common useful utilities for development
 | installNeovim | Install Neovim (set to false to skip) | boolean | true |
 | installWatchman | Install Watchman (set to false to skip) | boolean | true |
 | installCodex | Install Codex (set to true to install) | boolean | false |
-| installClaude | Install Claude Code (set to true to install) | boolean | false
+| installClaude | Install Claude Code (set to true to install) | boolean | false |
+
 
 
 ---
