@@ -61,6 +61,12 @@ else
         vim \
         wget \
         xz-utils
+
+    # Debian/Ubuntu's "bat" package installs the binary as "batcat" due to a
+    # name collision with an unrelated package, so "bat" isn't on PATH.
+    if ! command -v bat >/dev/null 2>&1 && command -v batcat >/dev/null 2>&1; then
+        ln -s "$(command -v batcat)" /usr/local/bin/bat
+    fi
 fi
 
 INSTALL_NEOVIM_EFFECTIVE=${INSTALLNEOVIM:-${INSTALL_NEOVIM:-true}}

@@ -7,24 +7,29 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-# Checks if packages are installed and installs them if not
+# Checks if packages are installed and installs them if not.
+# This script asserts it is already running as root above, so none of these
+# need (or, on minimal images like Alpine, even have) sudo available.
 check_packages() {
     if command -v brew >/dev/null 2>&1; then
-        sudo brew install "$@"
-    elif ! dpkg -s "$@" >/dev/null 2>&1; then
-        if [ "$(find /var/lib/apt/lists/* | wc -l)" = "0" ]; then
-            echo "Running apt-get update..."
-            sudo apt-get update -y
+        brew install "$@"
+    elif command -v apt-get >/dev/null 2>&1; then
+        if ! dpkg -s "$@" >/dev/null 2>&1; then
+            if [ "$(find /var/lib/apt/lists/* | wc -l)" = "0" ]; then
+                echo "Running apt-get update..."
+                apt-get update -y
+            fi
+            apt-get -y install --no-install-recommends "$@"
         fi
-        sudo apt-get -y install --no-install-recommends "$@"
-    elif command -v yum >/dev/null 2>&1; then
-        sudo yum install "$@"
     elif command -v apk >/dev/null 2>&1; then
-        sudo apk add --no-cache "$@"
+        apk add --no-cache "$@"
+    elif command -v yum >/dev/null 2>&1; then
+        yum install -y "$@"
     elif command -v pacman >/dev/null 2>&1; then
-        sudo pacman -S "$@"
+        pacman -S --noconfirm "$@"
     else
         echo "Could not find a package manager to install $@. Please install it manually."
+        exit 1
     fi
 }
 
@@ -33,6 +38,16 @@ check_packages() {
 check_packages bash curl ca-certificates
 
 echo "Installing Claude Code using the official native installer..."
+
+# The native installer always installs under $HOME (a symlink at
+# ~/.local/bin/claude pointing at a versioned binary under
+# ~/.local/share/claude/versions/<version>). During a root-run feature
+# install that resolves to /root, which non-root container users can't
+# traverse, leaving the /usr/local/bin/claude symlink dangling for them.
+# Point HOME at a world-readable location for the duration of the install.
+export HOME="/usr/local/share/claude-home"
+mkdir -p "$HOME"
+
 curl -fsSL https://claude.ai/install.sh | bash
 
 export PATH="${HOME}/.local/bin:${PATH}"
